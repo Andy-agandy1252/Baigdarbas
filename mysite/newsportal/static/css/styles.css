@@ -1,0 +1,15 @@
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  
+  .navbar-nav li {
+    margin-right: 10px;
+  }
+  
+  .navbar-nav.ml-auto li {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  
