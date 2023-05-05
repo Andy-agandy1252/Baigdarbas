@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Welcome to my website!</h1>
+{% for title, title_link, headline in combined_list %}
+  <div>
+    <a> {{ headline }} </a>
+    <br>
+    <a href="{% url 'article_detail' article_link=title_link %}">{{ title }}</a>
+  </div>
+{% endfor %}
 {% endblock %}
