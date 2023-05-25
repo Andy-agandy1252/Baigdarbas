@@ -1,14 +1,21 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-    <div class="container register">
+    <div class="container mt-4" class="container register">
         <h3>Registracija</h3><br/>
-
-        <form method="post">
+        <form  method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="username">Vartotojo vardas</label>
+                <label for="first_name">Vardas</label>
+                <input name="first_name" type="text" class="form-control" id="first_name" aria-describedby="first_nameHelp">
+                <small id="first_nameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Pavardė</label>
+                <input name="last_name" type="text" class="form-control" id="last_name" aria-describedby="last_nameHelp">
+                <small id="last_nameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
+            </div>
+            <div class="form-group">
+                <label for="username">Vartotojo prisijungimo vardas</label>
                 <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp">
                 <small id="usernameHelp" class="form-text text-muted">Iki 150 simbolių.</small>
             </div>
@@ -30,7 +37,7 @@
             </div>
             <button type="submit" class="btn btn-primary register-button">Registruotis</button>
         </form>
-        <p>Jeigu užsiregistravote anksčiau, <a href="/login"><strong>prisijunkite.</strong></a></p>
+        <p>Jeigu užsiregistravote anksčiau, <a href="{% url 'login' %}"><strong>prisijunkite.</strong></a></p>
     </div>
-
+<br><br>
 {% endblock %}

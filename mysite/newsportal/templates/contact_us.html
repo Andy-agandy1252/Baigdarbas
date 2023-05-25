@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="text-center">
+      <h1 style="margin-left: 100px;">Susisiekite su mumis</h1>
+      <br>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="first_name" >Vardas:</label>
+          <input name="first_name" type="text" class="form-control" id="first_name" aria-describedby="first_nameHelp">
+        </div>
+        <div class="form-group">
+          <label for="last_name">Pavardė:</label>
+          <input name="last_name" type="text" class="form-control" id="last_name" aria-describedby="last_nameHelp">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">El. paštas:</label>
+          <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="content">Žinutė:</label>
+          <textarea name="content" class="form-control" id="content" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Išsiusti E-Mail</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

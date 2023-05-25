@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h1>Watchlist</h1>
+    <hr>
+    {% if cryptocurrencies %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Market Cap Rank</th>
+            <th>High 24h</th>
+            <th>Low 24h</th>
+            <th>Market Cap Change % 24h</th>
+            <th>Current Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for crypto in cryptocurrencies %}
+            <tr>
+              <td>{{ crypto.name }}</td>
+              <td><img src="{{ crypto.image.url }}" alt="{{ crypto.name }} logo" class="img-fluid"></td>
+              <td>{{ crypto.market_cap_rank }}</td>
+              <td>{{ crypto.high_24h }}</td>
+              <td>{{ crypto.low_24h }}</td>
+              <td>{{ crypto.market_cap_change_24h }}</td>
+              <td>{{ crypto.current_price }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No cryptocurrencies in the watchlist.</p>
+    {% endif %}
+  </div>
+{% endblock %}

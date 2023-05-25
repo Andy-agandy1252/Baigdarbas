@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 style="margin-left: 500px;">Prideti naujiena</h3>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="title">Pavadinimas</label>
+
+        <input name="title" type="text" class="form-control" id="title" required>
+      </div>
+      <div class="form-group">
+        <label for="headline">Kategorija</label>
+        <input name="headline" type="text" class="form-control" id="headline" required>
+      </div>
+      <div class="form-group">
+        <label for="image">Nuotrauka</label>
+        <input name="image" type="file" class="form-control-file" id="image">
+      </div>
+      <div class="form-group">
+        <label for="author">Autorius</label>
+        <input name="author" type="text" class="form-control" id="author" required>
+      </div>
+      <div class="form-group">
+        <label for="lead">Trumpas aprašymas</label>
+        <textarea name="lead" class="form-control" id="lead" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="content">Straipsnis</label>
+        <textarea name="content" class="form-control" id="content" rows="6" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Paviešinti</button>
+    </form>
+  </div>
+  <br><br><br>
+{% endblock %}

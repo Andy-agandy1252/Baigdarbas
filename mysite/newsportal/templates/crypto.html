@@ -1,42 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Cryptocurrencies</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Symbol</th>
-        <th>Name</th>
-        <th>Price (USD)</th>
-        <th>Market Cap (USD)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for crypto in page_obj %}
-        <tr>
-          <td>{{ crypto.symbol }}</td>
-          <td><a href="{% url 'crypto_detail' crypto.id %}">{{ crypto.name }}</a></td>
-          <td>{{ crypto.current_price }}</td>
-          <td>{{ crypto.market_cap }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <div class="pagination">
-    <span class="step-links">
-      {% if page_obj.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-      {% endif %}
-
-      <span class="current-page">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-      </span>
-
-      {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">next</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-    </span>
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="text-center">
+      <h1>Crypto valiutos</h1>
+      <br>
+      <form method="get">
+        {% csrf_token %}
+        <label for="sort_by">Rūšiuoti pagal:</label>
+        <select id="sort_by" name="sort_by">
+          {% for option_value, option_text in sort_options %}
+            <option value="{{ option_value }}" {% if option_value == selected_sort_option %}selected{% endif %}>
+              {{ option_text }}
+            </option>
+          {% endfor %}
+        </select>
+        <button type="submit">Rūšiuoti</button>
+        <br><br>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th class="crypto-name">Name</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Image&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Market Cap Rank&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;High 24h&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Low 24h&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Market Cap Change % 24h&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Current Price&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for crypto in page_obj %}
+            <tr>
+              <td>
+                <a style="font-size: 20px;"class="index-link" href="{% url 'crypto_detail' crypto.id %}"><strong>{{ crypto.name }}</strong></a>
+              </td>
+              <td><img src="{{ crypto.image }}" width="30" height="30" alt="{{ crypto.name }}" /></td>
+              <td>{{ crypto.market_cap_rank }}</td>
+              <td>{{ crypto.high_24h }}</td>
+              <td>{{ crypto.low_24h }}</td>
+              <td>
+                {% if crypto.market_cap_change_percentage_24h < 0 %}
+                  <i class="fas fa-arrow-down change-icon red"></i>
+                {% elif crypto.market_cap_change_percentage_24h > 0 %}
+                  <i class="fas fa-arrow-up change-icon green"></i>
+                {% else %}
+                  <i class="fas fa-equals change-icon"></i>
+                {% endif %}
+                <span class="{% if crypto.market_cap_change_percentage_24h < 0 %}red{% elif crypto.market_cap_change_percentage_24h > 0 %}green{% endif %}">
+                  {{ crypto.market_cap_change_percentage_24h }}
+                </span>
+              </td>
+              <td><strong>${{ crypto.current_price }}</strong></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <br>
+      <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1{% if sort %}&sort={{ sort }}{% endif %}"><i class="fas fa-angle-double-left"></i> first</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}"><i class="fas fa-angle-left"></i> previous</a>
+          {% endif %}
+          <span class="current-page">
+            <span class="page-info">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+          </span>
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">next <i class="fas fa-angle-right"></i></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if sort %}&sort={{ sort }}{% endif %}">last <i class="fas fa-angle-double-right"></i></a>
+          {% endif %}
+        </span>
+      </div>
+      
+      
+    </div>
   </div>
+  <br><br>
 {% endblock %}

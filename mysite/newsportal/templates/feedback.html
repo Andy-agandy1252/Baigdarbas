@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="text-center">
+      <h1 style="margin-left: 150px;">Parašykite atsiliepimą</h1>
+      <div class="container mt-4">
+        <div class="add-comment-form">
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="name">Vardas</label>
+              <input name="name" type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="comment">Atsiliepimas</label>
+              <textarea name="comment" class="form-control" id="comment" rows="5" required style="width: 600px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Palikti atsiliepimą</button>
+          </form>
+          <br>
+        </div>
+        <div class="comments-section">
+          <h3 style="margin-left: 100px;">Musu arsiliepimai</h3>
+          <br>
+          {% for feedback in feedbacks reversed%}
+            <div class="comment">
+              <p><strong>Vardas:</strong> {{ feedback.name }}</p>
+              <p><strong>Atsiliepimas:</strong> {{ feedback.comment }}</p>
+              <p><strong>Sukurtas:</strong> {{ feedback.created_at }}</p>
+            </div>
+            {% if not forloop.last %}
+              <hr> <!-- Add a horizontal line between feedback entries -->
+            {% endif %}
+          {% empty %}
+            <p>Kolkas nera atsiliepimų.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+{% endblock %}

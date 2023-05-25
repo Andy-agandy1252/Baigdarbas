@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<h1>{{ title }}</h1>
+<p>{{ date_time }}</p>
+{% if image_url %}
+  <img src="{{ image_url }}" alt="{{ title }}">
+{% endif %}
+<p>{{ lead }}</p>
+{% for paragraph in paragraphs %}
+  <p>{{ paragraph }}</p>
+{% endfor %}
+{% for image in images %}
+  <img src="{{ image }}" alt="{{ title }}">
+<br><br>
+{% endfor %}
+{% endblock %}

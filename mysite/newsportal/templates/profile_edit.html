@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h3>Atnaujinti Profilį</h3><br/>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Vartotojo vardas (prisijungimo):</label>
+                <input name="username" type="text" class="form-control" id="username" value="{{ user.username }}" aria-describedby="usernameHelp">
+<!--                <small id="usernameHelp" class="form-text text-muted">Up to 150 characters.</small>-->
+            </div>
+            <div class="form-group">
+                <label for="email">El. paštas:</label>
+                <input name="email" type="email" class="form-control" id="email" value="{{ user.email }}" aria-describedby="emailHelp">
+<!--                <small id="emailHelp" class="form-text text-muted">Valid email address.</small>-->
+            </div>
+            <div class="form-group">
+                <label for="password">Slaptažodis:</label>
+                <input name="password" type="password" class="form-control" id="password" aria-describedby="passwordHelp">
+                <small id="passwordHelp" class="form-text text-muted">Palikite tuščia jei nenorit pakeist salptažodžio.</small>
+            </div>
+            <div class="form-group">
+                <label for="bio">Biografija:</label>
+                <textarea name="bio" class="form-control" id="bio" rows="3">{{ user.userprofile.bio }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="avatar">Nuotrauka:</label>
+                <input name="avatar" type="file" class="form-control-file" id="avatar">
+              </div>
+            <div class="form-group">
+                <label for="location">Adresas:</label>
+                <input name="location" type="text" class="form-control" id="location" value="{{ user.userprofile.location }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Išsaugoti</button>
+        </form>
+    </div>
+{% endblock %}

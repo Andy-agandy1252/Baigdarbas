@@ -1,15 +1,330 @@
-.navbar-nav {
-    display: flex;
-    flex-direction: row;
-    
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%)
+}
+nav{
+background: linear-gradient(to right, #33ccff 0%, #ff99cc 100%)
+}
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+
+.mb-4{
+background:rgb(207, 229, 243);
+
+}
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+
+.form-group label{
+  margin-left: 200px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
   }
+}
+
+.change-icon {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.red {
+color: rgb(235, 30, 30);
+}
+
+.green {
+color: rgb(1, 146, 1);
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.index-title {
+  width: 360px; /* Adjust the width value as needed */
+}
+
+.index-link {
   
-  .navbar-nav li {
-    margin-right: 10px;
+  font-size: 15px;
+  color: black;
+  transition: color 0.3s; /* Add a smooth transition effect */
+  text-decoration: none; /* Remove the underline */
+}
+
+.index-link:hover {
+  color: red; /* Change the color to red on hover */
+  text-decoration: none; /* Remove the underline on hover */
+}
+
+/* =======================*/
+
+.login {
+  margin-right:20%;
+  width: 1000px;
+}
+h1, h2, h3, h4, h5, h6, a {
+  margin: 0px; padding-right: 100px;
+}
+.login-header {
+  color:#f5e5e5;
+  text-align:center;
+  font-size:300%;
+
+}
+.login-header h1 {
+   text-shadow: 0px 5px 15px #000;
   }
-  
-  .navbar-nav.ml-auto li {
-    margin-right: 0;
-    margin-left: 10px;
+
+
+.login-form {
+  border:.5px solid #fff;
+  background:#4facff;
+  border-radius:10px;
+  box-shadow:0px 0px 10px #000;
+  padding: 250px;
+}
+.login-form h3 {
+  text-align:center;
+  margin-left:0px;
+
+  color:#fff;
+}
+.login-form {
+  box-sizing:border-box;
+  padding-top:15px;
+	padding-bottom:10%;
+  margin:5% auto;
+  text-align:center;
+}
+
+.login-button {
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom:10px;
+  margin-left:-20%;
+  width: 150px;
+}
+.login-button:hover {
+  background-color: #aa98bb;
+  color: black;
+}
+.sign-up{
+  color:#f2f2f2;
+
+  margin-left:0%;
+  cursor:pointer;
+  text-decoration:underline;
+
+}
+.no-access {
+  color:#E86850;
+  margin:20px 0px 20px 0%;
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+/*Media Querie*/
+@media only screen and (min-width : 150px) and (max-width : 530px){
+  .login-form h3 {
+    text-align:center;
+    margin:0;
   }
-  
+  .sign-up, .no-access {
+    margin:10px 0;
+  }
+  .login-button {
+    margin-bottom:10px;
+    width: 50px;
+  }
+}
+
+.input-group button{
+
+margin-left: 400px;
+}
+/* =================== */
+
+/* Center align the heading and add top and bottom margin */
+.text-center.my-4 {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: -100px;
+}
+
+/* Center align the label and display it as a block-level element */
+.text-center.d-block {
+  text-align: center;
+  display: block;
+ margin-right: 200px;
+}
+
+/* Center align the balance paragraph */
+.text-center {
+  text-align: center;
+  margin-right: 0px;
+}
+
+/* Center align the buttons and add bottom margin */
+.input-group-prepend {
+  justify-content: center;
+  margin-right: 300px;
+  width: 20px;
+}
+
+/* Display the submit button as a block-level element and horizontally center align */
+button[type="submit"].d-block.mx-auto {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Center align the added amount paragraph */
+.text-center#addedAmount {
+  text-align: center;
+}
+
+.mx-2{
+  height: 60px;  
+    color:rgb(255, 255, 255);
+    background:rgb(243, 126, 214);
+}
+.save{
+  margin-top: 50px;
+  background-color: #33ccff;
+}
+.image-500px {
+  width: 580px;
+  height: 386px;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.comment-actions p,
+.comment-actions button {
+  margin-right: 10px;
+}
+
+.comments-section{
+  padding-left: 20px;
+  width: 600px;
+  background-color: #c6def3;
+}
+
+.crypto-name{
+  padding-right: 100px;
+}
+.fa-angle-double{
+  font-size: 50px;
+}
+
+.form-group label {
+  font-size: 20px;
+  margin-left: 0;
+ 
+}
+.label-left {
+  margin-left: 200px;
+}
+.rounded-image {
+  height: 500px;
+  width: 500px;
+  border-radius: 10%;
+}
+
+.get-pro-link {
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #000; /* Replace #000 with the desired border color */
+  background-color: #ff0000; /* Replace #f0f0f0 with the desired background color */
+  font-size: 20px; /* Replace 16px with the desired text size */
+  padding: 5px 15px; /* Adjust the padding as needed */
+  transition: background-color 0.3s, color 0.3s; /* Add smooth transitions for hover effects */
+  text-decoration: none; /* Remove underline from the link */
+  color: #fafafa; /* Replace #000 with the desired text color */
+  border-radius: 50%;
+}
+
+.get-pro-link:hover {
+  background-color: #ffee00; /* Replace #000 with the desired background color on hover */
+  color: #3cff00; /* Replace #fff with the desired text color on hover */
+}
+
+.facebook-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2427f8;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 10px;
+}
+
+.facebook-icon i {
+  color: #fff; /* Icon color */
+}
+
+.linkedin-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #0077B5;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 10px;
+}
+
+.linkedin-icon i {
+  color: #ffffff;
+}
+
