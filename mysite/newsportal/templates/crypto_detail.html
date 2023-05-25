@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ crypto_data.name }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="{{ crypto_data.image.small }}" alt="{{ crypto_data.name }} logo" class="img-fluid">
+            </div>
+            <div class="col-md-8">
+              <h5 class="card-title">{{ crypto_data.symbol | upper }}</h5>
+              <p class="card-text">Market Cap Rank: <strong>{{ crypto_data.market_data.market_cap_rank }}</strong></p>
+          
+              <p class="card-text">Current Price: <strong> ${{ crypto_data.market_data.current_price.usd }}</strong></p>
+              <p class="card-text">24h Volume: <strong> ${{ crypto_data.market_data.total_volume.usd }}</strong></p>
+              <p class="card-text">Market Cap: <strong> ${{ crypto_data.market_data.market_cap.usd }}</strong></p>
+              <p class="card-text">Total Supply: <strong>{{ crypto_data.market_data.total_supply | floatformat:2 }}</strong> </p>
+              <p class="card-text">Circulating Supply: <strong> {{ crypto_data.market_data.circulating_supply | floatformat:2 }}</strong></p>
+              <p class="card-text">All Time High: <strong> ${{ crypto_data.market_data.ath.usd }}</strong></p>
+              <p class="card-text">All Time Low: <strong> ${{ crypto_data.market_data.atl.usd }}</strong></p>
+            </div>
+          </div>
+          <hr>
+          {% if data %}
+          <div class="row">
+            <div class="col-md-12">
+              <h5 class="card-title">Price Chart for the last year</h5>
+              <div id="chartContainer" style="height: 370px; width: 100%;" data-crypto-id="{{ crypto_data.id }}"></div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br>
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
+{% endblock %}

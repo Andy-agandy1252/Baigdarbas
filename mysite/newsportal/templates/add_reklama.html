@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+  <div class="text-center">
+    <h1>Pridėti Reklamą</h1>
+    <br>
+    <form style="margin-left: -100px;" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Paviešinti</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

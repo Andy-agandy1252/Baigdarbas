@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+  <div class="container mt-4">
+    <div class="login">
+      <div class="login-header">
+    {% if form.errors %}
+      <h1>Prisijungimo klaida, bandykite dar kartą!</h1>
+    {% endif %}
+    {% if next %}
+      {% if user.is_authenticated %}
+        <h1>Neturite prieigos prie šios informacijos. Turite prisijungti.</h1>
+      {% endif %}
+    {% endif %}
+        <h1>Prisijungti</h1>
+      </div>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="login-form">
+        <h3>Vartotojo vardas:
+          {{ form.username }}<br></h3>
+        <h3>Slaptažodis:
+          {{ form.password }}<br></h3>
+        <input type="submit" value="Prisijungti" class="login-button"/>
+        <br><br>
+        <a class="sign-up" href="{% url 'password_reset' %}">Pamiršote slaptažodį?</a>
+        <br><br>
+        <a class="no-access" href="{% url 'register' %}">Jei dar neprisiregistravote?</a>
+      </div>
+    </form>
+    </div>
+  </div>
+
+{% endblock %}

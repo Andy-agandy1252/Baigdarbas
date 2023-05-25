@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.pub_date|date:"F d, Y" }}</p>
+    {% if article.image %}
+      <img src="{{ article.image.url }}" class="card-img-top image-500px" alt="{{ article.title }}">
+    {% endif %}
+    <p>{{ article.content }}</p>
+
+    <div class="add-comment-form">
+      {% if user.is_authenticated %}
+        <h3>Add a Comment</h3>
+        <form method="post" action="{% url 'article_detail' article_id=article.id %}">
+          {% csrf_token %}
+          <textarea name="content" required rows="5" style="width: 600px;"></textarea>
+          <br>
+          <button type="submit">Submit Comment</button>
+        </form>
+      {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+      {% endif %}
+    </div>
+    <br>
+    <div class="comments-section">
+      <br>
+      <h3>Comments</h3>
+      {% for comment in comments reversed %}
+        <div class="comment">
+          <p>User: {{ comment.user }} Posted on: {{ comment.created_at|date:"F d, Y" }}</p>
+          <p>{{ comment.content }}</p>
+          <form method="post" class="like-comment-form">
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+            <div class="comment-actions">
+              <button class="btn btn-primary" type="submit" name="like">
+                <i class="fas fa-thumbs-up"></i> {{ comment.likes }}
+              </button>
+              <button class="btn btn-primary" type="submit" name="dislike">
+                <i class="fas fa-thumbs-down"></i> {{ comment.dislikes }}
+              </button>
+            </div>
+          </form>
+          <br>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+<br><br>
+{% endblock %}

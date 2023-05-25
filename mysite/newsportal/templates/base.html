@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}My Website{% endblock %}</title>
+  {% load static %}
+  <!-- Script to include jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'js/chart.js' %}" defer></script>
+  <!-- Link to include Bootstrap CSS framework -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Link to include Font Awesome CSS file -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="navbar-top fixed-top">
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Left-side links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link navbar-brand" href="{% url 'index' %}"><span class="big-text">Pergale</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Naujienos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'crypto' %}">Crypto valiutos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="proDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            PRO
+          </a>
+          <div class="dropdown-menu" aria-labelledby="proDropdown">
+            <a class="dropdown-item" href="{% url 'add_article' %}">Pridėti naujieną</a>
+            <a class="dropdown-item" href="{% url 'add_reklama' %}">Pridėti reklamą</a>
+            <a class="dropdown-item" href="{% url 'balanse' %}">Balansas</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'what_is_pro' %}">Kas yra PRO</a>
+        </li>
+      </ul>
+      <!-- Right-side links -->
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'balanse' %}">Jūsų balansas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">{{ user.get_username }} Profilis</a>
+          </li>
+          <li class="nav-item">
+            {% if user.is_superuser %}
+            <a class="nav-link" href="/admin/">Admino puslapis</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}?next=/accounts/login/">Išeiti</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Prisijungti</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Registruotis</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</div>
+<br><br>
+{% block content %}
+{% endblock %}
+<div>
+  <nav class="navbar navbar-expand-md navbar-light bg-light navbar-bottom fixed-bottom">
+    <a class="nav-link" href="https://www.facebook.com" target="_blank">
+      <span class="facebook-icon">
+        <i class="fab fa-facebook-f"></i>
+      </span>
+    </a>
+    <a class="nav-link" href="https://www.linkedin.com" target="_blank">
+      <span class="linkedin-icon">
+        <i class="fab fa-linkedin-in"></i>
+      </span>
+    </a>
+    <div class="container-fluid">
+      <ul class="navbar-nav mr-auto">
+        <!-- Add your left-aligned navigation links here -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'privacy_policy' %}">Privatumo politika</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact_us' %}">Susisiekite su mumis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">Apie</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'what_is_pro' %}">Kas yra PRO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'feedback' %}">Atsilepimai</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        <!-- Add authenticated user links here -->
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link get-pro-link" href="{% url 'login' %}">Gaukite Pro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Prisijungti</a>
+        </li>
+      {% endif %}
+    </div>
+  </nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

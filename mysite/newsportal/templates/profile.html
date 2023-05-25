@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-left" style="margin-left: 50px;">
+        <h1>Profilis</h1>
+        <h1>Name: {{ profile.user.username }}</h1>
+        <h1>El. paštas: {{ profile.user.email }}</h1>
+        <br>
+        {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" class="rounded-image" alt="Avatar">
+        {% else %}
+            <p>No avatar available</p>
+        {% endif %}
+        <br>
+        <h3>Biografija trumpa: {{ profile.bio }}</h3>
+        <br>
+        <p style="font-size: 40px;"> Balansas: <strong>{{ user.userprofile.balanse }}</strong></p>
+
+        <a href="{% url 'balanse' %}" class="btn btn-primary">Papildyti sąsakaitą</a>
+        <br><br>
+
+        <a href="{% url 'profile_edit' %}" class="btn btn-primary">Atnaujinti profilį</a>
+    </div>
+    <br><br><br>
+{% endblock %}
+

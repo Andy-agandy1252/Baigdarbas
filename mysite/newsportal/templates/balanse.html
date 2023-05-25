@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="text-center my-4">Įdėti pinigus į sąskaitą</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="balanse" class="text-center d-block" style="font-size: 40px; margin-left: 200px;">Jūsų Balansas:</label>
+      <input name="balanse" type="hidden" id="balanse" value="{{ user.userprofile.balanse }}">
+      <p class="text-center" style="font-size: 40px;">{{ user.userprofile.balanse }} EUR</p><br>
+
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary mx-2" type="button" onclick="addAmount(5)">Pridėti 5 EUR</button>
+        <button class="btn btn-primary mx-2" type="button" onclick="addAmount(10)">Pridėti 10 EUR</button>
+        <button class="btn btn-primary mx-2" type="button" onclick="addAmount(50)">Pridėti 50 EUR</button>
+        <button class="btn btn-primary mx-2" type="button" onclick="addAmount(100)">Pridėti 100 EUR</button>
+      </div>
+    </div>
+    <p id="addedAmount" class="text-center" style="font-size: 40px;"></p>
+    <button type="submit" class="btn btn-primary d-block mx-auto save">Papildyti</button>
+  </form>
+   <!-- New paragraph to display the added amount -->
+</div>
+<br><br>
+<script>
+  let accumulatedAmount = 0; // Variable to store the accumulated amount
+
+  function addAmount(amount) {
+    const balanseInput = document.getElementById('balanse');
+    const currentValue = parseFloat(balanseInput.value);
+    const newValue = currentValue + amount;
+    balanseInput.value = newValue;
+    accumulatedAmount += amount; // Accumulate the added amount
+
+    // Display the accumulated amount in the paragraph
+    const addedAmountParagraph = document.getElementById('addedAmount');
+    addedAmountParagraph.textContent = `Norite: ${accumulatedAmount} EUR sumą pervesti į Jūsų sąskaitą`;
+  }
+</script>
+{% endblock %}
