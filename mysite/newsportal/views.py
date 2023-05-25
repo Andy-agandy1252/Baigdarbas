@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 cg = CoinGeckoAPI()
 
@@ -63,6 +64,7 @@ def index(request):
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     comments = Comment.objects.filter(article=article)
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -71,27 +73,35 @@ def article_detail(request, article_id):
             comment.user = request.user
             comment.save()
             return redirect('article_detail', article_id=article.id)
+
         comment_id = request.POST.get('comment_id')
         if comment_id:
             comment = Comment.objects.get(id=comment_id)
             user = request.user
-            if 'like' in request.POST and not CommentLike.objects.filter(user=user, comment=comment).exists():
-                if CommentDislike.objects.filter(user=user, comment=comment).exists():
-                    CommentDislike.objects.filter(user=user, comment=comment).delete()
-                CommentLike.objects.create(user=user, comment=comment)
-                comment.likes = CommentLike.objects.filter(comment=comment).count()
-                comment.dislikes = CommentDislike.objects.filter(comment=comment).count()
-                comment.save()
-            elif 'dislike' in request.POST and not CommentDislike.objects.filter(user=user, comment=comment).exists():
-                if CommentLike.objects.filter(user=user, comment=comment).exists():
-                    CommentLike.objects.filter(user=user, comment=comment).delete()
-                CommentDislike.objects.create(user=user, comment=comment)
-                comment.likes = CommentLike.objects.filter(comment=comment).count()
-                comment.dislikes = CommentDislike.objects.filter(comment=comment).count()
-                comment.save()
+            if user.is_authenticated:
+                if 'like' in request.POST and not CommentLike.objects.filter(user=user, comment=comment).exists():
+                    if CommentDislike.objects.filter(user=user, comment=comment).exists():
+                        CommentDislike.objects.filter(user=user, comment=comment).delete()
+                    CommentLike.objects.create(user=user, comment=comment)
+                    comment.likes = CommentLike.objects.filter(comment=comment).count()
+                    comment.dislikes = CommentDislike.objects.filter(comment=comment).count()
+                    comment.save()
+                elif 'dislike' in request.POST and not CommentDislike.objects.filter(user=user,
+                                                                                     comment=comment).exists():
+                    if CommentLike.objects.filter(user=user, comment=comment).exists():
+                        CommentLike.objects.filter(user=user, comment=comment).delete()
+                    CommentDislike.objects.create(user=user, comment=comment)
+                    comment.likes = CommentLike.objects.filter(comment=comment).count()
+                    comment.dislikes = CommentDislike.objects.filter(comment=comment).count()
+                    comment.save()
+            else:
+                # Handle the case when the user is not authenticated
+                return redirect('login') 
+
             return redirect('article_detail', article_id=article.id)
     else:
         form = CommentForm()
+
     context = {
         'article': article,
         'comments': comments,
