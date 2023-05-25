@@ -1,6 +1,8 @@
-import os
 from pathlib import Path
-from .password import password
+
+from dotenv import load_dotenv
+import os
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -110,7 +112,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = '/path/to/static/files/'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, '/images/media/')
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -121,6 +124,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'a.agarin1252@gmail.com'
+EMAIL_HOST_USER = os.getenv("email")
 # el. pašto adresas iš kurio siųsite
-EMAIL_HOST_PASSWORD = password
+EMAIL_HOST_PASSWORD = os.getenv("password")
+
+LOGIN_URL = 'login'
